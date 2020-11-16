@@ -1,0 +1,128 @@
+To do:
+
+1. αν υπάρχει rating αλλά όχι userid στο αρχείο user
+2. MySQL client for python set up
+3. k-nearest 
+4. collaborate filtering
+5. Matrix Factorization for improving recommendation systems
+6. What encoding to use to read files
+7. Histogram for user age
+
+
+Steps:
+1. Describe dataset:
+	  i. csv file description (size mb/rows)
+	 ii. for every file describe fields (type, information(key+unique identifiers), ranges/enumeration)
+
+2. Book Popularity:
+	 i. book rating -> ISBN
+	ii. dict{ISBN, count of book ratings regardless of value}
+   iii. sort by value and reverse
+		
+3. Author Popularity:
+	 i. dict{author, list of books ISBN}
+	ii. dict{author, count of all books ratings regardless of value}
+   iii. sort by value and reverse
+   
+4. Reading Activity:
+    -report this metric (how many books read per user): number of rows/number of unique users-histogram
+    -how many comments per age-group
+    dict(age_group, mean_no_of_ratings)
+     i. max(age) + min(age) => age groups, decide on step
+    ii. for every group count rows and users (to determine number of unique users per age group)
+   iii. mean per group create bar chart. (number of rows/number of unique users-histogram)
+   
+5. Book Outliers:
+	i. dict{ISBN, count of book ratings regardless of value} (of number 2) => {ISBN_1: 1,ISBN_2: 5,ISBN_3: 7}
+   ii. dict.values => [4,5,7] => X_bar, sigma => Z = X-X_bar/sigma > 3 OR <-3, Z>40 OR Z<2
+  iii. loop dict/filter with decision rule
+   iv. Decision rule for upper tail: x >= 18 + X_bar
+    v. Decision rule for lower tail: x <= X_bar - 18
+   vi. 6 sigma (saltses + references)
+   
+6. Authors Outliers:
+	i. dict{author, count of all books ratings regardless of value} (of number 3)
+   ii. repeat as above
+   
+7. User Outliers:
+	i. dict{user id, total number of ratings}
+   ii. repeat as above
+
+
+
+ df_ratings_matrix_w_ages.to_csv("../data/rating_matrix.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")
+
+
+ DB MIGRATION
+ ============
+ C:\\Users\\George\\DataScience_MSc\\modules\\6001_IntroductionToBigData\\groupProject\\Part_A_Batch\\mg-grpj-part-a\\migration\\books_to_db.csv
+ ISBN;Book-Title;Book-Author;Year-Of-Publication;Publisher
+ Template
+ -------
+LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Learning\\App6_DBconnection\\CC.csv'
+INTO TABLE `test`.`ccd`
+CHARACTER SET armscii8
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES (`Cd_Type`, `Full_Name`, `Billing_Date`);
+
+------------------------------------
+
+LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Users\\George\\DataScience_MSc\\modules\\6001_IntroductionToBigData\\groupProject\\Part_A_Batch\\mg-grpj-part-a\\migration\\ratings_small_to_db.csv'
+INTO TABLE `books`.`book_table`
+CHARACTER SET latin1
+FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(`ISBN`, `Book-Title`, `Book-Author`, `Year-Of-Publication`, `Publisher`);
+
+
+-----------------------------------------------
+/*show local_infile -> should be off*/
+SHOW VARIABLES LIKE '%LOCAL%';
+SET GLOBAL local_infile=1;
+SHOW VARIABLES LIKE '%LOCAL%';
+/*show local_infile -> should be on*/
+/*Execute migration command*/
+LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Users\\George\\DataScience_MSc\\modules\\6001_IntroductionToBigData\\groupProject\\Part_A_Batch\\mg-grpj-part-a\\migration\\ratings_to_db.csv'
+INTO TABLE `books`.`ratings_table`
+CHARACTER SET latin1
+FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(`User-ID`, `ISBN`, `Book-Rating`);
+
+............................................
+/*ADD TO PYTHON FILE TO CONNECT WITH MYSQL*/
+SHOW VARIABLES LIKE '%LOCAL%';
+SET GLOBAL local_infile=1;
+SHOW VARIABLES LIKE '%LOCAL%';
+LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Users\\George\\DataScience_MSc\\modules\\6001_IntroductionToBigData\\groupProject\\Part_A_Batch\\mg-grpj-part-a\\migration\\ratings_to_db.csv'
+INTO TABLE `books`.`ratings_table`
+CHARACTER SET latin1
+FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(`User-ID`, `ISBN`, `Book-Rating`);
+
+............................................
+
+SHOW VARIABLES LIKE '%LOCAL%';
+SET GLOBAL local_infile=1;
+SHOW VARIABLES LIKE '%LOCAL%';
+LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Users\\George\\DataScience_MSc\\modules\\6001_IntroductionToBigData\\groupProject\\Part_A_Batch\\mg-grpj-part-a\\migration\\users_to_db.csv'
+INTO TABLE `books`.`users`
+CHARACTER SET latin1
+FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(`userid`, `location`, `age`);
+SHOW WARNINGS;
+
+............................................
+
+SHOW VARIABLES LIKE '%LOCAL%';
+SET GLOBAL local_infile=1;
+SHOW VARIABLES LIKE '%LOCAL%';
+LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Users\\George\\DataScience_MSc\\modules\\6001_IntroductionToBigData\\groupProject\\Part_A_Batch\\mg-grpj-part-a\\migration\\books_to_db.csv'
+INTO TABLE `books`.`books_table`
+CHARACTER SET latin1
+FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(`ISBN`, `Book-Title`, `Book-Author`, `year`, `Publisher`);
+SHOW warnings;
