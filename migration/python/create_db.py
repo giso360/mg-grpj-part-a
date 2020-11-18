@@ -18,7 +18,7 @@ cursor.execute("SET NAMES utf8")
 books_char = """SET character_set_client = utf8mb4"""
 books_table = """CREATE TABLE `books_table` (
                  `ISBN` varchar(25) NOT NULL,
-                 `Book-Title` varchar(150) DEFAULT 'UNKNOWN TITLE',
+                 `Book-Title` varchar(300) DEFAULT 'UNKNOWN TITLE',
                  `Book-Author` varchar(150) DEFAULT 'UNKNOWN AUTHOR',
                  `year` year(4) DEFAULT '0000',
                  `Publisher` varchar(150) DEFAULT 'UNKNOWN PUBLISHER',
