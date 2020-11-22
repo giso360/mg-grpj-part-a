@@ -126,3 +126,12 @@ FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINA
 IGNORE 1 LINES
 (`ISBN`, `Book-Title`, `Book-Author`, `year`, `Publisher`);
 SHOW warnings;
+
+-----------------------------------------------
+
+22/11/2020
+apo edo:
+MARIA: https://www.xspdf.com/resolution/56849223.html
+    Drop duplicates case sensitive
+
+SKOUF: Programatically copy csv files to "C:\ProgramData\MySQL\MySQL Server 8.0\Data\books", Use os package
