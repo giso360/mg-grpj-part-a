@@ -21,7 +21,7 @@ books_table = """CREATE TABLE `books_table` (
                  `Book-Title` varchar(300) DEFAULT 'UNKNOWN TITLE',
                  `Book-Author` varchar(150) DEFAULT 'UNKNOWN AUTHOR',
                  `year` year(4) DEFAULT '0000',
-                 `Publisher` varchar(150) DEFAULT 'UNKNOWN PUBLISHER',
+                 `Publisher` varchar(300) DEFAULT 'UNKNOWN PUBLISHER',
                  PRIMARY KEY (`ISBN`),
                  UNIQUE KEY `isbn_UNIQUE` (`ISBN`)
                  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
