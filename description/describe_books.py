@@ -12,6 +12,7 @@ def make_copy_df_for_db(dataframe):
         inplace=True
     )
     dataframe_to_db = dataframe
+    dataframe_to_db = dataframe_to_db.drop_duplicates(subset = 'ISBN', keep = 'first')
     dataframe_to_db.to_csv("../migration/books_to_db.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")
     return dataframe_to_db
 
@@ -38,6 +39,7 @@ print("=====D-TYPES=====")
 print(df_books.dtypes, "\n")
 print("=====UNIQUES=====")
 print("=====WHAT FIELDS ARE UNIQUE??====")
+df_books['ISBN'] = df_books['ISBN'].apply(lambda x:x.lower())
 report_if_field_is_unique(df_books)
 print("\n")
 df_users_duplicates = df_books.drop_duplicates()
