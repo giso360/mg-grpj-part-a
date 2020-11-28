@@ -20,7 +20,7 @@ books_table = """CREATE TABLE `books_table` (
                  `ISBN` varchar(25) NOT NULL,
                  `Book-Title` varchar(300) DEFAULT 'UNKNOWN TITLE',
                  `Book-Author` varchar(150) DEFAULT 'UNKNOWN AUTHOR',
-                 `year` year(4) DEFAULT '0000',
+                 `year` int (4) DEFAULT '0000',
                  `Publisher` varchar(300) DEFAULT 'UNKNOWN PUBLISHER',
                  PRIMARY KEY (`ISBN`),
                  UNIQUE KEY `isbn_UNIQUE` (`ISBN`)

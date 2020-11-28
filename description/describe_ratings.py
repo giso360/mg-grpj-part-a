@@ -1,8 +1,6 @@
 import pandas as pd
 from util.part_a_util import report_if_field_is_unique
 
-
-
 df_ratings = pd.read_csv('../data/BX-Book-Ratings.csv', sep=';', encoding="ISO-8859-1")
 print("=====COLUMNS/FIELDS=====")
 print(df_ratings.columns, "\n")
@@ -22,7 +20,7 @@ print("=====UNIQUES=====")
 # print(len(df_users["Location"].unique()) == df_users.shape[0])
 # print(len(df_users["Age"].unique()) == df_users.shape[0])
 print("=====WHAT FIELDS ARE UNIQUE??====")
-df_ratings['ISBN'] = df_ratings['ISBN'].apply(lambda x:x.lower())
+df_ratings['ISBN'] = df_ratings['ISBN'].apply(lambda x: x.lower())
 report_if_field_is_unique(df_ratings)
 print("\n")
 print("=========")
@@ -34,8 +32,6 @@ if initial_size != final_size:
     print(initial_size - final_size, "Duplicates with common ISBN, User-ID Pairs detected AND removed")
 else:
     print("No Duplicates with common ISBN, User-ID Pairs detected")
-
-
 
 print(len(df_ratings["User-ID"].unique().tolist()))
 
