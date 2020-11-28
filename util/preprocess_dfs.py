@@ -51,7 +51,7 @@ def generate_book_popularity_df():
 def generate_author_popularity_df():
     df_book_popularity = generate_book_popularity_df()
     df_books = preprocess_books_df()
-    df_book_popularity_books = df_book_popularity.merge(df_books, on="ISBN", how="left")
+    df_book_popularity_books = df_book_popularity.merge(df_books, on="ISBN", how="inner")
     a = df_book_popularity_books["Book-Author"].value_counts()
     authors = list(a.index)
     data = {"Book-Author": authors, "NOR": a}

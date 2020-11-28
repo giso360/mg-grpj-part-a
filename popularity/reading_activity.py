@@ -15,7 +15,7 @@ print("-------")
 print(df_users_ratings.head(10))
 print("-------")
 print("ages:")
-df_users_ratings_books = df_users_ratings.merge(df_books, on="ISBN", how="left")
+df_users_ratings_books = df_users_ratings.merge(df_books, on="ISBN", how="inner")
 print(sorted(df_users_ratings_books["Age"].unique().tolist()))
 age_mean = int(df_users_ratings_books["Age"].mean())
 print(age_mean)
@@ -39,7 +39,7 @@ print(rating_matrix_df.head(10))
 
 print("Calculation took approximately: ", (datetime.now() - start).seconds, " seconds")
 
-df_ratings_matrix_w_ages = rating_matrix_df.merge(df_users, on="User-ID", how="left")
+df_ratings_matrix_w_ages = rating_matrix_df.merge(df_users, on="User-ID", how="inner")
 
 # df_ratings_matrix_w_ages['Age'] = df_ratings_matrix_w_ages['Age'].fillna(age_mean)
 

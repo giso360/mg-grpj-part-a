@@ -15,7 +15,7 @@ print(df_book_popularity.info())
 
 print("===== ISBN | Title | NOR (Top-100) ======")
 df_books = preprocess_books_df()
-df_book_popularity_books = df_book_popularity.merge(df_books, on="ISBN", how="left")
+df_book_popularity_books = df_book_popularity.merge(df_books, on="ISBN", how="inner")
 
 print(df_book_popularity_books.head())
 
