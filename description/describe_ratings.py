@@ -1,5 +1,16 @@
+import sys
 import pandas as pd
-from util.part_a_util import report_if_field_is_unique
+# from util.part_a_util import report_if_field_is_unique
+# sys.path.append('../util')
+
+
+def report_if_field_is_unique(df):
+    fields = df.columns.tolist()
+    for field in fields:
+        if len(df[field].unique()) == df.shape[0]:
+            print("Field [", str(field), "] is unique")
+        else:
+            print("Field [", str(field), "] is NOT unique")
 
 df_ratings = pd.read_csv('../data/BX-Book-Ratings.csv', sep=';', encoding="ISO-8859-1")
 print("=====COLUMNS/FIELDS=====")
@@ -36,5 +47,36 @@ else:
 print(len(df_ratings["User-ID"].unique().tolist()))
 
 print("CSV to DB")
+# exclude rows for users with a single rating
 
+# indexNames = df[((df['Year-Of-Publication']) > 9999)].index
+# df.drop(indexNames, inplace=True)
+print(df_ratings.shape)
+print("====AND====")
+print(df_ratings["User-ID"].nunique()) # 105283 users have provided book ratings out of the total of 278858 registered users
+df_ratings_freq_analysis = df_ratings.groupby(["User-ID"])["User-ID"].count().reset_index(name="count")
+print(df_ratings_freq_analysis.dtypes)
+print("bla")
+# TODO: Create bins/histogram for reading activity (cut function)
+df_ratings_freq_analysis.astype({"count": "int32"})
+bins = pd.cut(df_ratings_freq_analysis["count"], [*range(0, 14000, 150)])
+df_ratings_freq_analysis_bins = df_ratings_freq_analysis.groupby(bins)["count"].agg(["count"])
+print(df_ratings_freq_analysis_bins.head(100))
+# Need Histogram
+df_ratings_freq_analysis_bins.hist()
+df_ratings_freq_analysis_bins.plot.hist()
+
+# #######################
+print(df_ratings_freq_analysis_bins["count"].sum())
+print("bla")
+
+
+print(df_ratings_freq_analysis.describe())
+
+print("====AND====")
+print(df_ratings.head())
+df_ratings_count_single_indexes = df_ratings[df_ratings['User-ID'].map(df_ratings['User-ID'].value_counts()) == 1].index
+df_ratings.drop(df_ratings_count_single_indexes, inplace=True)
+df_ratings.reset_index(drop=True, inplace=True)
+print(df_ratings.shape)
 df_ratings.to_csv("../migration/ratings_to_db.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")

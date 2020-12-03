@@ -142,3 +142,14 @@ instructions:
 1. GO TO: C:\ProgramData\MySQL\MySQL Server 8.0\my.ini
 2. COMMENT OUT USING THE # CHARACTER THE PROPERTY: secure-file-priv
 3. ADD PROPERTY IN FILE AS: secure-file-priv=""
+
+
+
+---------------------
+STATS
+from users.csv:
+total users: 278858
+
+from ratings.csv:
+total users: 105283
+

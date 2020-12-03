@@ -3,8 +3,8 @@ from util.part_a_util import get_country
 
 
 def preprocess_users_df():
-    # df_users = pd.read_csv('../data/BX-Users.csv', sep=';', encoding="ISO-8859-1")
-    df_users = pd.read_csv('../data/user_tiny.csv', sep=';', encoding="ISO-8859-1")
+    df_users = pd.read_csv('../data/BX-Users.csv', sep=';', encoding="ISO-8859-1")
+    # df_users = pd.read_csv('../data/user_tiny.csv', sep=';', encoding="ISO-8859-1")
     df_fields = df_users.columns.tolist()
     age_mean = int(df_users["Age"].mean())
     for field in df_fields:
@@ -30,8 +30,8 @@ def preprocess_books_df():
 
 
 def preprocess_ratings_df():
-    # df_ratings = pd.read_csv('../data/BX-Book-Ratings.csv', sep=';', encoding="ISO-8859-1")
-    df_ratings = pd.read_csv('../data/ratiings_tiny.csv', sep=';', encoding="ISO-8859-1")
+    df_ratings = pd.read_csv('../data/BX-Book-Ratings.csv', sep=';', encoding="ISO-8859-1")
+    # df_ratings = pd.read_csv('../data/ratiings_tiny.csv', sep=';', encoding="ISO-8859-1")
     df_ratings = df_ratings.drop_duplicates()
     df_ratings = df_ratings.drop_duplicates(["User-ID", "ISBN"], keep="last")
     return df_ratings
