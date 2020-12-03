@@ -1,5 +1,6 @@
 import sys
 import pandas as pd
+import matplotlib.pyplot as plt
 # from util.part_a_util import report_if_field_is_unique
 # sys.path.append('../util')
 
@@ -55,6 +56,7 @@ print(df_ratings.shape)
 print("====AND====")
 print(df_ratings["User-ID"].nunique()) # 105283 users have provided book ratings out of the total of 278858 registered users
 df_ratings_freq_analysis = df_ratings.groupby(["User-ID"])["User-ID"].count().reset_index(name="count")
+print(df_ratings_freq_analysis.columns)
 print(df_ratings_freq_analysis.dtypes)
 print("bla")
 # TODO: Create bins/histogram for reading activity (cut function)
@@ -62,9 +64,18 @@ df_ratings_freq_analysis.astype({"count": "int32"})
 bins = pd.cut(df_ratings_freq_analysis["count"], [*range(0, 14000, 150)])
 df_ratings_freq_analysis_bins = df_ratings_freq_analysis.groupby(bins)["count"].agg(["count"])
 print(df_ratings_freq_analysis_bins.head(100))
+print(df_ratings_freq_analysis_bins.columns)
+print("--------------------")
+df_ratings_freq_analysis_bins_intresting = df_ratings_freq_analysis[df_ratings_freq_analysis.groupby(["User-ID"]) <= 150]
+print(df_ratings_freq_analysis_bins_intresting.head())
+print("pppp")
+bins = pd.cut(df_ratings_freq_analysis_bins_intresting["count"], [*range(0, 150, 10)])
+df_ratings_freq_analysis_bins_intresting_bins = df_ratings_freq_analysis_bins_intresting.groupby(bins)["count"]
+print(df_ratings_freq_analysis_bins_intresting_bins.head(100))
 # Need Histogram
-df_ratings_freq_analysis_bins.hist()
-df_ratings_freq_analysis_bins.plot.hist()
+# df_ratings_freq_analysis_bins.hist(bins=150)
+# df_ratings_freq_analysis_bins.plot.hist()
+# plt.show()
 
 # #######################
 print(df_ratings_freq_analysis_bins["count"].sum())
