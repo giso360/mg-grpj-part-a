@@ -33,37 +33,37 @@ cursor.execute("SET NAMES utf8")
 # Create books_table
 books_char = """SET character_set_client = utf8mb4"""
 books_table = """CREATE TABLE `books_table` (
-                  `ISBN` varchar(25) NOT NULL,
-                  `Book-Title` varchar(300) DEFAULT 'UNKNOWN TITLE',
-                  `Book-Author` varchar(150) DEFAULT 'UNKNOWN AUTHOR',
-                  `year` int (4) DEFAULT '0000',
-                  `Publisher` varchar(300) DEFAULT 'UNKNOWN PUBLISHER',
-                  PRIMARY KEY (`ISBN`),
-                  UNIQUE KEY `isbn_UNIQUE` (`ISBN`)
-                  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
+                 `ISBN` varchar(25) NOT NULL,
+                 `BookTitle` varchar(300) DEFAULT 'UNKNOWN TITLE',
+                 `BookAuthor` varchar(150) DEFAULT 'UNKNOWN AUTHOR',
+                 `Year` int (4) DEFAULT '0000',
+                 `Publisher` varchar(300) DEFAULT 'UNKNOWN PUBLISHER',
+                 PRIMARY KEY (`ISBN`),
+                 UNIQUE KEY `isbn_UNIQUE` (`ISBN`)
+                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
 cursor.execute(books_char)
 cursor.execute(books_table)
 
 # Create users
 users_char = """SET character_set_client = utf8mb4"""
-users_table = """CREATE TABLE `users` (
-                  `userid` int(11) NOT NULL,
-                  `location` varchar(45) DEFAULT 'UNKNOWN COUNTRY',
-                  `age` int(11) DEFAULT NULL,
-                  PRIMARY KEY (`userid`)
-                  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
+users_table = """CREATE TABLE `users_table` (
+                 `UserId` int(11) NOT NULL,
+                 `Location` varchar(45) DEFAULT 'UNKNOWN COUNTRY',
+                 `Age` int(11) DEFAULT NULL,
+                 PRIMARY KEY (`UserId`)
+                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
 cursor.execute(users_char)
 cursor.execute(users_table)
 
 # Create ratings_table
 ratings_char = """SET character_set_client = utf8mb4"""
 ratings_table = """CREATE TABLE `ratings_table` (
-                    `ratingid` int(11) NOT NULL AUTO_INCREMENT,
-                    `User-ID` int(11) NOT NULL,
-                    `ISBN` varchar(45) NOT NULL,
-                    `Book-Rating` int(11) NOT NULL,
-                    PRIMARY KEY (`ratingid`)
-                    ) ENGINE=InnoDB AUTO_INCREMENT=3640120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
+                   `RatingId` int(11) NOT NULL AUTO_INCREMENT,
+                   `UserID` int(11) NOT NULL,
+                   `ISBN` varchar(45) NOT NULL,
+                   `BookRating` int(11) NOT NULL,
+                   PRIMARY KEY (`RatingId`)
+                   ) ENGINE=InnoDB AUTO_INCREMENT=3640120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
 cursor.execute(ratings_char)
 cursor.execute(ratings_table)
 

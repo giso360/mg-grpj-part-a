@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 from util.part_a_util import report_if_field_is_unique
@@ -64,16 +65,16 @@ df_ratings_freq_analysis_bins = df_ratings_freq_analysis.groupby(bins)["count"].
 print(df_ratings_freq_analysis_bins.head(100))
 print(df_ratings_freq_analysis_bins.columns)
 print("--------------------")
-# df_ratings_freq_analysis_bins_intresting = df_ratings_freq_analysis[df_ratings_freq_analysis.groupby(["User-ID"]) <= 150]
-# print(df_ratings_freq_analysis_bins_intresting.head())
+df_ratings_freq_analysis_bins_intresting = df_ratings_freq_analysis[df_ratings_freq_analysis.groupby(["User-ID"]) <= 150]
+print(df_ratings_freq_analysis_bins_intresting.head())
 print("pppp")
-# bins = pd.cut(df_ratings_freq_analysis_bins_intresting["count"], [*range(0, 150, 10)])
-# df_ratings_freq_analysis_bins_intresting_bins = df_ratings_freq_analysis_bins_intresting.groupby(bins)["count"]
-# print(df_ratings_freq_analysis_bins_intresting_bins.head(100))
+bins = pd.cut(df_ratings_freq_analysis_bins_intresting["count"], [*range(0, 150, 10)])
+df_ratings_freq_analysis_bins_intresting_bins = df_ratings_freq_analysis_bins_intresting.groupby(bins)["count"]
+print(df_ratings_freq_analysis_bins_intresting_bins.head(100))
 # Need Histogram
-df_ratings_freq_analysis_bins.hist(bins=150)
-df_ratings_freq_analysis_bins.plot.hist()
-plt.show()
+# df_ratings_freq_analysis_bins.hist(bins=150)
+# df_ratings_freq_analysis_bins.plot.hist()
+# plt.show()
 
 # #######################
 print(df_ratings_freq_analysis_bins["count"].sum())

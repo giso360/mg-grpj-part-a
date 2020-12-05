@@ -206,9 +206,3 @@ group by UserID
 having no_of_ratings < 6
 LIMIT 2000000;
 
-
-
-
-
-
-
