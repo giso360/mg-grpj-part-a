@@ -85,8 +85,8 @@ print(df_ratings_freq_analysis.describe())
 
 print("====AND====")
 print(df_ratings.head())
-df_ratings_count_single_indexes = df_ratings[df_ratings['User-ID'].map(df_ratings['User-ID'].value_counts()) == 1].index
-df_ratings.drop(df_ratings_count_single_indexes, inplace=True)
-df_ratings.reset_index(drop=True, inplace=True)
-print(df_ratings.shape)
+# df_ratings_count_single_indexes = df_ratings[df_ratings['User-ID'].map(df_ratings['User-ID'].value_counts()) == 1].index
+# df_ratings.drop(df_ratings_count_single_indexes, inplace=True)
+# df_ratings.reset_index(drop=True, inplace=True)
+# print(df_ratings.shape)
 df_ratings.to_csv("../migration/ratings_to_db.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")
