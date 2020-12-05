@@ -39,7 +39,7 @@ populate_books = """LOAD DATA LOW_PRIORITY INFILE 'books_to_db.csv'
                     INTO TABLE books.books_table
                     CHARACTER SET latin1
                     FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
-                    IGNORE 1 LINES (`ISBN`, `Book-Title`, `Book-Author`, `year`, `Publisher`)"""
+                    IGNORE 1 LINES (`ISBN`, `BookTitle`, `BookAuthor`, `Year`, `Publisher`)"""
 
 cursor.execute(populate_books)
 db.commit()
@@ -47,10 +47,10 @@ cursor.execute(show_warnings)
 
 # Populate users
 populate_users = """LOAD DATA LOW_PRIORITY INFILE 'users_to_db.csv'
-                    INTO TABLE books.users
+                    INTO TABLE books.users_table
                     CHARACTER SET latin1
                     FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
-                    IGNORE 1 LINES (`userid`, `location`, `age`)"""
+                    IGNORE 1 LINES (`UserId`, `Location`, `Age`)"""
 
 cursor.execute(populate_users)
 db.commit()
@@ -61,7 +61,7 @@ populate_ratings = """LOAD DATA LOW_PRIORITY INFILE 'ratings_to_db.csv'
                       INTO TABLE books.ratings_table
                       CHARACTER SET latin1
                       FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
-                      IGNORE 1 LINES (`User-ID`, `ISBN`, `Book-Rating`)"""
+                      IGNORE 1 LINES (`UserID`, `ISBN`, `BookRating`)"""
 
 cursor.execute(populate_ratings)
 db.commit()

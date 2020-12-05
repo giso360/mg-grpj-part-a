@@ -2,6 +2,7 @@ import pandas as pd
 
 from util.preprocess_dfs import preprocess_books_df, generate_book_popularity_df, generate_author_popularity_df
 
+
 pd.set_option('display.width', 300)
 pd.set_option('display.max_columns', None)
 
@@ -39,19 +40,3 @@ print("Top outliers")
 print(df_author_popularity_upper_outliers.head(10))
 print("Bottom outliers")
 print(df_author_popularity_lower_outliers.head(10))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
