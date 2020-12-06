@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity
+from datetime import datetime
 
 # Open database connection
 db = pymysql.connect(host="localhost",
@@ -144,6 +145,7 @@ r = df.to_numpy()
 
 similarUsers, similarities=findKSimilar (r,21)
 
+start = datetime.now()
 mae=0
 for i in range(0,nUsers):
     for j in range(0, nItems):
@@ -152,3 +154,6 @@ for i in range(0,nUsers):
         if not np.isnan(rhat):
             mae=mae+np.abs(rhat-r[i,j])
 print ('MAE=',mae)
+
+
+print("Calculation took approximately: ", (datetime.now() - start).seconds, " seconds")
