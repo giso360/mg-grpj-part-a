@@ -71,7 +71,7 @@ print(list_userid_number_of_ratings_under_150[:20])
 
 
 number_of_users_with_ratings_1 = """select Count(*) from (select distinct UserID, COUNT(*) as no_of_ratings
-                                            from books.ratings_table group by UserID having no_of_ratings = 1
+                                            from books.ratings_table group by UserID having no_of_ratings > 150
                                             LIMIT 2000000) AS ag"""
 cursor.execute(number_of_users_with_ratings_1)
 result_number_of_users_with_ratings_1 = list(cursor.fetchall())
