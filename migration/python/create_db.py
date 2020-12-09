@@ -5,6 +5,7 @@ import pymysql
 books_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/books_to_db.csv"""
 users_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/users_to_db.csv"""
 ratings_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/ratings_to_db.csv"""
+similar_users_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/similar_users_to_db.csv"""
 
 if os.path.isfile(books_file):
     os.remove(books_file)
@@ -14,6 +15,9 @@ if os.path.isfile(users_file):
     
 if os.path.isfile(ratings_file):
     os.remove(ratings_file)
+    
+if os.path.isfile(similar_users_file):
+    os.remove(similar_users_file)
 
 
 # Open db connection
@@ -66,6 +70,21 @@ ratings_table = """CREATE TABLE `ratings_table` (
                    ) ENGINE=InnoDB AUTO_INCREMENT=3640120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
 cursor.execute(ratings_char)
 cursor.execute(ratings_table)
+
+# Create similar_users_table
+similar_users_char = """SET character_set_client = utf8mb4"""
+similar_users_table = """CREATE TABLE `similar_users_table`(
+                         `UserId` int(11) NOT NULL,
+                         `Similar1` int(11) NOT NULL,
+                         `Similar2` int(11) NOT NULL,
+                         `Similar3` int(11) NOT NULL,
+                         `Similar4` int(11) NOT NULL,
+                         `Similar5` int(11) NOT NULL,
+                        PRIMARY KEY (`UserId`)
+                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
+    
+cursor.execute(similar_users_char)
+cursor.execute(similar_users_table)
 
 # Close db connection
 db.close()
