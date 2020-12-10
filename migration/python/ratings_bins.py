@@ -34,6 +34,27 @@ def findKSimilar (r, k):
             
     return similarUsers, similarities
 
+
+def findKSimilar2 (r, k):
+    
+    # similarUsers is 2-D matrix
+    similarUsers=-1*np.ones((nUsers,k))
+    
+    similarities=cosine_similarity(r)
+       
+    # for each user
+    for i in range(0, nUsers):
+        simUsersIdxs= np.argsort(similarities[:,i])
+        
+        l=0
+        #find its most similar users    
+        for j in range(simUsersIdxs.size-2, simUsersIdxs.size-k-2,-1):
+            simUsersIdxs[-k+1:]
+            similarUsers[i,l]=simUsersIdxs[j]
+            l=l+1
+            
+    return similarUsers, similarities
+
 # Predict for 'userId', the rating of 'itemId'. 
 # A trivial implementation of a collaboarative system
 #
@@ -89,7 +110,7 @@ plt.show()
 # Range of interest for recommender is users that have rated between 31-40 times
 # Who are these users???
 lower_limit = 150
-upper_limit = 201
+upper_limit = 501
 
 sql_users_in_recommender = """select distinct UserID, COUNT(*) as no_of_ratings from books.ratings_table
                               group by UserID having no_of_ratings > %s and no_of_ratings < %s LIMIT 2000000"""
@@ -143,14 +164,27 @@ similarUsers, similarities=findKSimilar (r,5)
 
 # Evaluation
 start = datetime.now()
-mae=0
+maei=0
+mapei=0
+counter = 0
 for i in range(0,nUsers):
     for j in range(0, nItems):
-        rhat=predict (i,j,r, similarUsers, similarities)
-        print (i, '-', j, 'prediction, real',rhat,r[i,j])
-        if not np.isnan(rhat):
-            mae=mae+np.abs(rhat-r[i,j])
-print ('MAE=',mae)
+        if r[i,j] != 0:
+            rhat=predict (i,j,r, similarUsers, similarities)
+            print (i, '-', j, 'prediction, real', rhat, r[i,j])
+            if not np.isnan(rhat):
+                counter += 1
+                maei=maei+np.abs(rhat-r[i,j])
+                mapei=mapei+np.abs((rhat-r[i,j])/r[i,j])
+            
+print('MAEI=', maei)
+print('MAPEI=', mapei)
+print("Counter: ", counter)
+mae = maei/counter
+print("MAE: ", mae)
+mape = (mapei/counter)*100
+print("MAPE= ", mape)
+
 
 
 print("Calculation took approximately: ", (datetime.now() - start).seconds, " seconds")
@@ -197,15 +231,15 @@ copy_similar_users = shutil.copy(similar_users_original_path, destination_path)
 cursor.execute("use books")
 
 # Populate similar_users_table
-populate_similar_users = """LOAD DATA LOW_PRIORITY INFILE 'neighbors-k-books.csv'
-                            INTO TABLE books.user_neighbors
-                            CHARACTER SET latin1
-                            FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
-                            IGNORE 1 LINES (`UserID`, `Similar1`, `Similar2`, `Similar3`, `Similar4`, `Similar5`)"""
+# populate_similar_users = """LOAD DATA LOW_PRIORITY INFILE 'neighbors-k-books.csv'
+#                             INTO TABLE books.user_neighbors
+#                             CHARACTER SET latin1
+#                             FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
+#                             IGNORE 1 LINES (`UserID`, `Similar1`, `Similar2`, `Similar3`, `Similar4`, `Similar5`)"""
 
-cursor.execute(populate_similar_users)
-db.commit()
-cursor.execute(show_warnings)
+# cursor.execute(populate_similar_users)
+# db.commit()
+# cursor.execute(show_warnings)
 
 
 
@@ -252,15 +286,15 @@ copy_user_pairs = shutil.copy(user_pairs_original_path, destination_path)
 cursor.execute("use books")
 
 # Populate user_pairs
-populate_user_pairs = """LOAD DATA LOW_PRIORITY INFILE 'user-pairs-books.csv'
-                          INTO TABLE books.user_pairs
-                          CHARACTER SET latin1
-                          FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
-                          IGNORE 1 LINES (`UserID`, `Similar`, `Similarity`)"""
+# populate_user_pairs = """LOAD DATA LOW_PRIORITY INFILE 'user-pairs-books.csv'
+#                           INTO TABLE books.user_pairs
+#                           CHARACTER SET latin1
+#                           FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+#                           IGNORE 1 LINES (`UserID`, `Similar`, `Similarity`)"""
 
-cursor.execute(populate_user_pairs)
-db.commit()
-cursor.execute(show_warnings)
+# cursor.execute(populate_user_pairs)
+# db.commit()
+# cursor.execute(show_warnings)
 
 
 
