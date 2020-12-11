@@ -89,8 +89,23 @@ similar_users_table = """CREATE TABLE `user_neighbors`(
         
 cursor.execute(similar_users_char)
 cursor.execute(similar_users_table)
+
+# Create similar_users_table
+similar_users_age_char = """SET character_set_client = utf8mb4"""
+similar_users_age_table = """CREATE TABLE `user_neighbors_age`(
+                             `UserId` int(11) NOT NULL,
+                             `Similar1` int(11),
+                             `Similar2` int(11),
+                             `Similar3` int(11),
+                             `Similar4` int(11),
+                             `Similar5` int(11),
+                             PRIMARY KEY (`UserId`)
+                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
+        
+cursor.execute(similar_users_age_char)
+cursor.execute(similar_users_age_table)
     
-# Create user-pairs
+# Create user_pairs
 user_pairs_char = """SET character_set_client = utf8mb4"""
 user_pairs_table = """CREATE TABLE `user_pairs`(
                       `PairId` int(11) NOT NULL AUTO_INCREMENT,
@@ -102,6 +117,19 @@ user_pairs_table = """CREATE TABLE `user_pairs`(
     
 cursor.execute(user_pairs_char)
 cursor.execute(user_pairs_table)
+
+# Create user_pairs_age
+user_pairs_age_char = """SET character_set_client = utf8mb4"""
+user_pairs_age_table = """CREATE TABLE `user_pairs_age`(
+                          `PairId` int(11) NOT NULL AUTO_INCREMENT,
+                          `UserId` int(11) NOT NULL,
+                          `Similar` int(11) NOT NULL,
+                          `Similarity` DOUBLE NOT NULL,
+                          PRIMARY KEY (`PairId`)
+                          ) ENGINE=InnoDB AUTO_INCREMENT=3640120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"""
+    
+cursor.execute(user_pairs_age_char)
+cursor.execute(user_pairs_age_table)
 
 # Close db connection
 db.close()

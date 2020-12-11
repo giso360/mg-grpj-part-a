@@ -35,25 +35,6 @@ def findKSimilar (r, k):
     return similarUsers, similarities
 
 
-def findKSimilar2 (r, k):
-    
-    # similarUsers is 2-D matrix
-    similarUsers=-1*np.ones((nUsers,k))
-    
-    similarities=cosine_similarity(r)
-       
-    # for each user
-    for i in range(0, nUsers):
-        simUsersIdxs= np.argsort(similarities[:,i])
-        
-        l=0
-        #find its most similar users    
-        for j in range(simUsersIdxs.size-2, simUsersIdxs.size-k-2,-1):
-            simUsersIdxs[-k+1:]
-            similarUsers[i,l]=simUsersIdxs[j]
-            l=l+1
-            
-    return similarUsers, similarities
 
 # Predict for 'userId', the rating of 'itemId'. 
 # A trivial implementation of a collaboarative system
@@ -203,6 +184,7 @@ for x in range(0, max_users_range):
         df_similar_users.iloc[x][y] = user
         
 df_similar_users.to_csv("neighbors-k-books.csv", index=True, header=True, sep=';', encoding="ISO-8859-1")
+df_similar_users.to_csv("neighbors-k-books.data", index=True, header=True, sep=';', encoding="ISO-8859-1")
 
 
 
@@ -261,6 +243,7 @@ columns_similarities_to_db = ["UserId", "SimilarUser", "Similarity"]
 df_similarities_to_db = pd.DataFrame(similarities_list, columns = columns_similarities_to_db)
 
 df_similarities_to_db.to_csv("user-pairs-books.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")
+df_similarities_to_db.to_csv("user-pairs-books.data", index=False, header=True, sep=';', encoding="ISO-8859-1")
 
 # User pairs to db
 user_pairs_original_path = """user-pairs-books.csv"""
