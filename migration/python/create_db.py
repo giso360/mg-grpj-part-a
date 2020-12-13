@@ -7,6 +7,8 @@ users_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/users_to_db.csv
 ratings_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/ratings_to_db.csv"""
 similar_users_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/neighbors-k-books.csv"""
 user_pairs_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/user-pairs-books.csv"""
+similar_users_ages_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/neighbors-ages-k-books.csv"""
+user_pairs_ages_file = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books/user-pairs-ages-books.csv"""
 
 if os.path.isfile(books_file):
     os.remove(books_file)
@@ -22,6 +24,12 @@ if os.path.isfile(similar_users_file):
     
 if os.path.isfile(user_pairs_file):
     os.remove(user_pairs_file)
+    
+if os.path.isfile(similar_users_ages_file):
+    os.remove(similar_users_ages_file)
+    
+if os.path.isfile(user_pairs_ages_file):
+    os.remove(user_pairs_ages_file)
 
 
 # Open db connection

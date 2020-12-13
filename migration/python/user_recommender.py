@@ -48,6 +48,5 @@ def find_recommended_books(userid):
     db.close()
     return
 
-books = find_recommended_books(1733)
-
-
+books = find_recommended_books(276994)
+books = find_recommended_books(244309)
