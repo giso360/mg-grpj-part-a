@@ -26,3 +26,4 @@ print(df.head(100))
 # Need Histogram
 df.hist()
 df.plot.hist()
+df.plot()

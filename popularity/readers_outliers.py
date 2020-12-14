@@ -20,10 +20,5 @@ print("----------------------------------------")
 # print(df_readers_ratings_lower_outliers.head())
 print(df_readers_ratings_lower_outliers.tail())
 
-print("RRRRRRRRR")
 
 print(df_readers_ratings["Z-NOR"].mean())
-
-
-
-

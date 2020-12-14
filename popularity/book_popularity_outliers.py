@@ -21,7 +21,7 @@ print(df_book_popularity_books.head())
 
 df_book_popularity_books_top_100 = df_book_popularity_books.head(100)
 print(df_book_popularity_books_top_100.describe())
-print("rgegrge")
+
 df_book_popularity_books_bottom_100 = df_book_popularity_books.tail(100)
 print(df_book_popularity_books_bottom_100.describe())
 
@@ -51,14 +51,3 @@ print("Top outliers")
 print(df_book_popularity_books_upper_outliers.tail(10))
 print("Bottom outliers")
 print(df_book_popularity_books_lower_outliers.head(10))
-
-
-
-
-
-
-
-
-
-
-

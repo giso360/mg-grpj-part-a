@@ -1,16 +1,16 @@
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt
-from util.part_a_util import report_if_field_is_unique
+# from util.part_a_util import report_if_field_is_unique
 
 
-# def report_if_field_is_unique(df):
-#     fields = df.columns.tolist()
-#     for field in fields:
-#         if len(df[field].unique()) == df.shape[0]:
-#             print("Field [", str(field), "] is unique")
-#         else:
-#             print("Field [", str(field), "] is NOT unique")
+def report_if_field_is_unique(df):
+    fields = df.columns.tolist()
+    for field in fields:
+        if len(df[field].unique()) == df.shape[0]:
+            print("Field [", str(field), "] is unique")
+        else:
+            print("Field [", str(field), "] is NOT unique")
 
 df_ratings = pd.read_csv('../data/BX-Book-Ratings.csv', sep=';', encoding="ISO-8859-1")
 print("=====COLUMNS/FIELDS=====")
@@ -58,7 +58,7 @@ df_ratings_freq_analysis = df_ratings.groupby(["User-ID"])["User-ID"].count().re
 print(df_ratings_freq_analysis.columns)
 print(df_ratings_freq_analysis.dtypes)
 print("bla")
-# TODO: Create bins/histogram for reading activity (cut function)
+
 df_ratings_freq_analysis.astype({"count": "int32"})
 bins = pd.cut(df_ratings_freq_analysis["count"], [*range(0, 14000, 150)])
 df_ratings_freq_analysis_bins = df_ratings_freq_analysis.groupby(bins)["count"].agg(["count"])
@@ -78,7 +78,6 @@ print("pppp")
 
 # #######################
 print(df_ratings_freq_analysis_bins["count"].sum())
-print("bla")
 
 
 print(df_ratings_freq_analysis.describe())
