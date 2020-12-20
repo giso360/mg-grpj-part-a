@@ -250,15 +250,15 @@ copy_similar_users = shutil.copy(similar_users_original_path, destination_path)
 cursor.execute("use books")
 
 # Populate similar_users_table
-# populate_similar_users = """LOAD DATA LOW_PRIORITY INFILE 'neighbors-ages-k-books.csv'
-#                             INTO TABLE books.user_neighbors_age
-#                             CHARACTER SET latin1
-#                             FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
-#                             IGNORE 1 LINES (`UserID`, `Similar1`, `Similar2`, `Similar3`, `Similar4`, `Similar5`)"""
+populate_similar_users = """LOAD DATA LOW_PRIORITY INFILE 'neighbors-ages-k-books.csv'
+                            INTO TABLE books.user_neighbors_age
+                            CHARACTER SET latin1
+                            FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
+                            IGNORE 1 LINES (`UserID`, `Similar1`, `Similar2`, `Similar3`, `Similar4`, `Similar5`)"""
 
-# cursor.execute(populate_similar_users)
-# db.commit()
-# cursor.execute(show_warnings)
+cursor.execute(populate_similar_users)
+db.commit()
+cursor.execute(show_warnings)
 
 # Close db connection
 db.close()
@@ -302,15 +302,15 @@ copy_user_pairs = shutil.copy(user_pairs_original_path, destination_path)
 cursor.execute("use books")
 
 # Populate user_pairs
-# populate_user_pairs = """LOAD DATA LOW_PRIORITY INFILE 'user-pairs-ages-books.csv'
-#                           INTO TABLE books.user_pairs_age
-#                           CHARACTER SET latin1
-#                           FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
-#                           IGNORE 1 LINES (`UserID`, `Similar`, `Similarity`)"""
+populate_user_pairs = """LOAD DATA LOW_PRIORITY INFILE 'user-pairs-ages-books.csv'
+                          INTO TABLE books.user_pairs_age
+                          CHARACTER SET latin1
+                          FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+                          IGNORE 1 LINES (`UserID`, `Similar`, `Similarity`)"""
 
-# cursor.execute(populate_user_pairs)
-# db.commit()
-# cursor.execute(show_warnings)
+cursor.execute(populate_user_pairs)
+db.commit()
+cursor.execute(show_warnings)
 
 # Close db connection
 db.close()

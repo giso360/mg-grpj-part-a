@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt
-# from util.part_a_util import report_if_field_is_unique
+from part_a_util import report_if_field_is_unique
 
 
 def report_if_field_is_unique(df):

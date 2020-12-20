@@ -1,5 +1,5 @@
 import pandas as pd
-from util.part_a_util import report_if_field_is_unique
+from part_a_util import report_if_field_is_unique
 
 
 def make_copy_df_for_db(dataframe):
@@ -74,3 +74,4 @@ df_books.dropna(
 
 print(df_books.describe())
 print(df_books.shape)
+print(df_books.info(memory_usage="deep"), "\n")

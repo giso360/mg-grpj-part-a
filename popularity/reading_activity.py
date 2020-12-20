@@ -1,5 +1,5 @@
-from util.part_a_util import sort_dict_by_value_desc
-from util.preprocess_dfs import *
+from part_a_util import sort_dict_by_value_desc
+from preprocess_dfs import *
 from datetime import datetime
 
 pd.set_option('display.width', 300)

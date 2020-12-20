@@ -1,5 +1,5 @@
 import pandas as pd
-from util.part_a_util import report_if_field_is_unique, get_country
+from part_a_util import report_if_field_is_unique, get_country
 
 
 df_users = pd.read_csv('../data/BX-Users.csv', sep=';', encoding="ISO-8859-1")

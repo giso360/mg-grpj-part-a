@@ -1,6 +1,6 @@
 import pandas as pd
 
-from util.preprocess_dfs import preprocess_ratings_df, preprocess_books_df, generate_book_popularity_df
+from preprocess_dfs import preprocess_ratings_df, preprocess_books_df, generate_book_popularity_df
 
 pd.set_option('display.width', 300)
 pd.set_option('display.max_columns', None)

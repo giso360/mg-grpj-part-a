@@ -199,98 +199,98 @@ d = (df_neighbors.groupby('Unnamed: 0')[cols]
         .reset_index(name='Neighbors')
         .to_json("neighbors-k-books.data", orient='records'))
 
-# # Similar users to db
-# similar_users_original_path = """neighbors-k-books.csv"""
+# Similar users to db
+similar_users_original_path = """neighbors-k-books.csv"""
 
-# # Open database connection
-# db = pymysql.connect(host="localhost",
-#                       user="root",
-#                       passwd="root",
-#                       local_infile=True)
+# Open database connection
+db = pymysql.connect(host="localhost",
+                      user="root",
+                      passwd="root",
+                      local_infile=True)
 
-# cursor = db.cursor()
+cursor = db.cursor()
 
-# wait_timeout = """SET innodb_lock_wait_timeout = 120"""
-# show_warnings = """SHOW warnings"""
+wait_timeout = """SET innodb_lock_wait_timeout = 120"""
+show_warnings = """SHOW warnings"""
 
-# # Settings
-# cursor.execute(wait_timeout)
-
-
-# destination_path = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books"""
-# copy_similar_users = shutil.copy(similar_users_original_path, destination_path)
+# Settings
+cursor.execute(wait_timeout)
 
 
-# cursor.execute("use books")
-
-# # Populate similar_users_table
-# populate_similar_users = """LOAD DATA LOW_PRIORITY INFILE 'neighbors-k-books.csv'
-#                             INTO TABLE books.user_neighbors
-#                             CHARACTER SET latin1
-#                             FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
-#                             IGNORE 1 LINES (`UserID`, `Similar1`, `Similar2`, `Similar3`, `Similar4`, `Similar5`)"""
-
-# cursor.execute(populate_similar_users)
-# db.commit()
-# cursor.execute(show_warnings)
+destination_path = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books"""
+copy_similar_users = shutil.copy(similar_users_original_path, destination_path)
 
 
+cursor.execute("use books")
 
-# # Close db connection
-# db.close()
+# Populate similar_users_table
+populate_similar_users = """LOAD DATA LOW_PRIORITY INFILE 'neighbors-k-books.csv'
+                            INTO TABLE books.user_neighbors
+                            CHARACTER SET latin1
+                            FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\n'
+                            IGNORE 1 LINES (`UserID`, `Similar1`, `Similar2`, `Similar3`, `Similar4`, `Similar5`)"""
+
+cursor.execute(populate_similar_users)
+db.commit()
+cursor.execute(show_warnings)
 
 
 
+# Close db connection
+db.close()
 
-# df_similarities = pd.DataFrame(data = similarities, index = results_users, columns = results_users)
 
-# similarities_list = []
-# for x in range(0, max_users_range):
-#     for y in range(0, max_users_range):
-#         if round(df_similarities.iat[x,y],4) != 0:
-#             similarities_list.append([results_users[x], results_users[y], round(df_similarities.iat[x,y],4)])
+
+
+df_similarities = pd.DataFrame(data = similarities, index = results_users, columns = results_users)
+
+similarities_list = []
+for x in range(0, max_users_range):
+    for y in range(0, max_users_range):
+        if round(df_similarities.iat[x,y],4) != 0:
+            similarities_list.append([results_users[x], results_users[y], round(df_similarities.iat[x,y],4)])
             
-# columns_similarities_to_db = ["UserId", "SimilarUser", "Similarity"]
-# df_similarities_to_db = pd.DataFrame(similarities_list, columns = columns_similarities_to_db)
+columns_similarities_to_db = ["UserId", "SimilarUser", "Similarity"]
+df_similarities_to_db = pd.DataFrame(similarities_list, columns = columns_similarities_to_db)
 
-# df_similarities_to_db.to_csv("user-pairs-books.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")
-# df_similarities_to_db.to_csv("user-pairs-books.data", index=False, header=True, sep=';', encoding="ISO-8859-1")
+df_similarities_to_db.to_csv("user-pairs-books.csv", index=False, header=True, sep=';', encoding="ISO-8859-1")
+df_similarities_to_db.to_csv("user-pairs-books.data", index=False, header=True, sep=';', encoding="ISO-8859-1")
 
-# # User pairs to db
-# user_pairs_original_path = """user-pairs-books.csv"""
+# User pairs to db
+user_pairs_original_path = """user-pairs-books.csv"""
 
-# # Open database connection
-# db = pymysql.connect(host="localhost",
-#                       user="root",
-#                       passwd="root",
-#                       local_infile=True)
+# Open database connection
+db = pymysql.connect(host="localhost",
+                      user="root",
+                      passwd="root",
+                      local_infile=True)
 
-# cursor = db.cursor()
+cursor = db.cursor()
 
-# wait_timeout = """SET innodb_lock_wait_timeout = 120"""
-# show_warnings = """SHOW warnings"""
+wait_timeout = """SET innodb_lock_wait_timeout = 120"""
+show_warnings = """SHOW warnings"""
 
-# # Settings
-# cursor.execute(wait_timeout)
-
-
-# destination_path = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books"""
-# copy_user_pairs = shutil.copy(user_pairs_original_path, destination_path)
-
-# cursor.execute("use books")
-
-# # Populate user_pairs
-# populate_user_pairs = """LOAD DATA LOW_PRIORITY INFILE 'user-pairs-books.csv'
-#                           INTO TABLE books.user_pairs
-#                           CHARACTER SET latin1
-#                           FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
-#                           IGNORE 1 LINES (`UserID`, `Similar`, `Similarity`)"""
-
-# cursor.execute(populate_user_pairs)
-# db.commit()
-# cursor.execute(show_warnings)
+# Settings
+cursor.execute(wait_timeout)
 
 
+destination_path = """C:/ProgramData/MySQL/MySQL Server 8.0/Data/books"""
+copy_user_pairs = shutil.copy(user_pairs_original_path, destination_path)
 
-# # Close db connection
-# db.close()
+cursor.execute("use books")
+
+# Populate user_pairs
+populate_user_pairs = """LOAD DATA LOW_PRIORITY INFILE 'user-pairs-books.csv'
+                          INTO TABLE books.user_pairs
+                          CHARACTER SET latin1
+                          FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"' LINES TERMINATED BY '\r\n'
+                          IGNORE 1 LINES (`UserID`, `Similar`, `Similarity`)"""
+
+cursor.execute(populate_user_pairs)
+db.commit()
+cursor.execute(show_warnings)
+
+
+
+# Close db connection
+db.close()

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from util.preprocess_dfs import preprocess_books_df, generate_book_popularity_df, generate_author_popularity_df
+from preprocess_dfs import preprocess_books_df, generate_book_popularity_df, generate_author_popularity_df
 
 
 pd.set_option('display.width', 300)
@@ -13,6 +13,7 @@ print("=====  Book-Author | NOR (Top-100/Bottom-100) ======")
 df_author_popularity_top_100 = df_author_popularity.head(100)
 df_author_popularity_bottom_100 = df_author_popularity.tail(100)
 print("==DESCRIBE==")
+print(df_author_popularity.describe())
 print("TOP-100")
 print(df_author_popularity_top_100.describe())
 print("BOTTOM-100")
